@@ -1,0 +1,5 @@
+language: generic
+
+script:
+  - echo "Проверяем наличие тестового файла..."
+  - wc -l test_travis.txt
