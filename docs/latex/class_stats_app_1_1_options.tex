@@ -1,0 +1,38 @@
+\doxysection{Stats\+App.\+Options Class Reference}
+\hypertarget{class_stats_app_1_1_options}{}\label{class_stats_app_1_1_options}\index{StatsApp.Options@{StatsApp.Options}}
+
+
+Класс Options -\/ Контейнер для хранения параметров конфигурации запуска.  
+
+
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_stats_app_1_1_options_a065cee989b2a6d36b95310baf02c0c36}\label{class_stats_app_1_1_options_a065cee989b2a6d36b95310baf02c0c36} 
+bool {\bfseries Show\+Help} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Переключатель отображения справки. Тип\+: bool. Допустимые значения\+: true (показать справку), false (обычный запуск). \end{DoxyCompactList}\item 
+\Hypertarget{class_stats_app_1_1_options_a3543ca10f2c2b64066efd68a5fbc3046}\label{class_stats_app_1_1_options_a3543ca10f2c2b64066efd68a5fbc3046} 
+string {\bfseries Input\+File} = "{}"{}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Путь к исходному текстовому файлу с числами. Тип\+: string. Допустимые значения\+: валидный путь к файлу. \end{DoxyCompactList}\item 
+\Hypertarget{class_stats_app_1_1_options_a49d87dfb9f177f56aef1b715fe937ac0}\label{class_stats_app_1_1_options_a49d87dfb9f177f56aef1b715fe937ac0} 
+string {\bfseries Output\+File} = "{}"{}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Путь к итоговому файлу для сохранения отчета. Тип\+: string. Допустимые значения\+: пустая строка или путь для записи. \end{DoxyCompactList}\item 
+\Hypertarget{class_stats_app_1_1_options_aa948acc268f60023e3b7c5e162837721}\label{class_stats_app_1_1_options_aa948acc268f60023e3b7c5e162837721} 
+\mbox{\hyperlink{namespace_stats_lib_a807942e4150263c623fbfffc858fdebb}{Operation\+Type}}? {\bfseries Operation}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Тип выполняемого статистического расчета. Тип\+: Operation\+Type? (nullable-\/перечисление). Допустимые значения\+: mean, variance, stddev, null. \end{DoxyCompactList}\item 
+\Hypertarget{class_stats_app_1_1_options_ab694702d9d4380254f554cce24ea7cbd}\label{class_stats_app_1_1_options_ab694702d9d4380254f554cce24ea7cbd} 
+bool {\bfseries Is\+Valid} = true\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Флаг корректности переданных аргументов командной строки. Тип\+: bool. Допустимые значения\+: true (ошибок нет), false (обнаружены некорректные аргументы). \end{DoxyCompactList}\item 
+\Hypertarget{class_stats_app_1_1_options_a0682ef533868d2dc62459a4a7c1733b4}\label{class_stats_app_1_1_options_a0682ef533868d2dc62459a4a7c1733b4} 
+string {\bfseries Error\+Message} = "{}"{}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Сообщение о конкретной ошибке, возникшей при парсинге. Тип\+: string. Допустимые значения\+: текст ошибки, описывающий причину провала валидации. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Класс Options -\/ Контейнер для хранения параметров конфигурации запуска. 
+
+Хранит распарсенные пути к файлам, тип выбранной операции и состояние валидности. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Main\+App/Program.\+cs\end{DoxyCompactItemize}
