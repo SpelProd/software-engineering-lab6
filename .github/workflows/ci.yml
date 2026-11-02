@@ -1,0 +1,15 @@
+name: CI Lab Automation
+
+on: [push] # Запуск при каждом git push
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify Travis Test File
+        run: |
+          echo "Проверка наличия файла test_travis.txt..."
+          wc -l test_travis.txt
