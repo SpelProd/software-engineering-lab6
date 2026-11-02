@@ -3,21 +3,50 @@ using System.Linq;
 
 namespace StatsLib
 {
+    /**
+     * @brief Перечисление OperationType - Список поддерживаемых статистических операций.
+     * 
+     * Определяет доступные алгоритмы обработки числовых массивов данных.
+     */
     public enum OperationType
     {
-        Mean,       // Среднее
-        Variance,   // Дисперсия
-        StdDev      // Среднеквадратичное отклонение
+        /** 
+         * @brief Вычисление среднего арифметического значения числового ряда.
+         */
+        Mean,
+
+        /** 
+         * @brief Вычисление выборочной дисперсии (несмещенная оценка).
+         */
+        Variance,
+
+        /** 
+         * @brief Вычисление среднеквадратичного отклонения (СКО).
+         */
+        StdDev
     }
 
+    /**
+     * @brief Статический класс StatsCalculator - Математический движок расчетов.
+     * 
+     * Содержит низкоуровневую реализацию алгоритмов первичного статистического анализа 
+     * для наборов вещественных чисел с жестким контролем входных ограничений.
+     */
     public static class StatsCalculator
     {
-        /// <summary>
-        /// Выполняет статистическую операцию над списком чисел.
-        /// </summary>
-        /// <param name="numbers">Список чисел (до 100 элементов)</param>
-        /// <param name="operation">Тип операции</param>
-        /// <returns>Результат операции</returns>
+        /**
+         * @brief Calculate - Универсальная точка вызова статистических операций.
+         * 
+         * Принимает входной вектор чисел, валидирует его размер согласно ограничениям проекта, 
+         * маршрутизирует вызов на соответствующий внутренний метод и возвращает результат вычислений.
+         * 
+         * @param numbers double[]: Входной массив числовых элементов. Не должен быть null или пустым.
+         * @param operation OperationType: Идентификатор запрашиваемой математической операции.
+         * @return double: Итоговое рассчитанное статистическое значение. Допустимые значения: любое вещественное число.
+         * @exception ArgumentException Вызывается, если массив null или не содержит элементов.
+         * @exception ArgumentOutOfRangeException Вызывается, если размерность массива превышает 100 элементов.
+         * @exception NotSupportedException Вызывается при передаче неопознанного типа операции.
+         */
         public static double Calculate(double[] numbers, OperationType operation)
         {
             if (numbers == null || numbers.Length == 0)
@@ -39,23 +68,47 @@ namespace StatsLib
             }
         }
 
+        /**
+         * @brief CalculateMean - Вычисление математического среднего арифметического.
+         * 
+         * Суммирует все элементы массива и делит полученную сумму на их общее количество.
+         * 
+         * @param numbers double[]: Валидированный массив чисел для расчета.
+         * @return double: Среднее арифметическое значение элементов.
+         */
         private static double CalculateMean(double[] numbers)
         {
             return numbers.Average();
         }
 
+        /**
+         * @brief CalculateVariance - Вычисление выборочной дисперсии.
+         * 
+         * Рассчитывает сумму квадратов отклонений каждого элемента от их общего среднего значения. 
+         * Для обеспечения несмещенности статистической оценки применяется деление на (N - 1), где N — объем выборки.
+         * 
+         * @param numbers double[]: Валидированный массив чисел для расчета.
+         * @return double: Значение выборочной дисперсии ряда данных. При N = 1 возвращает результат деления на 1.
+         */
         private static double CalculateVariance(double[] numbers)
         {
             double mean = CalculateMean(numbers);
             double sumOfSquaredDifferences = numbers.Sum(x => Math.Pow(x - mean, 2));
 
             // Используем несмещенную оценку (деление на N-1), если N > 1. 
-            // Если нужно просто среднее квадратов отклонений (N), замени (numbers.Length - 1) на numbers.Length
             int divisor = numbers.Length > 1 ? numbers.Length - 1 : 1;
 
             return sumOfSquaredDifferences / divisor;
         }
 
+        /**
+         * @brief CalculateStdDev - Вычисление среднеквадратичного отклонения.
+         * 
+         * Извлекает квадратный корень из ранее рассчитанной несмещенной выборочной дисперсии ряда данных.
+         * 
+         * @param numbers double[]: Валидированный массив чисел для расчета.
+         * @return double: Итоговое среднеквадратичное отклонение выборки. Допустимые значения: >= 0.
+         */
         private static double CalculateStdDev(double[] numbers)
         {
             return Math.Sqrt(CalculateVariance(numbers));
