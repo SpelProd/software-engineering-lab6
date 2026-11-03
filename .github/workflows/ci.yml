@@ -1,10 +1,10 @@
 name: Automated .NET Build
 
-on: [push] # Пайплайн срабатывает при каждом git push
+on: [push]
 
 jobs:
   build-project:
-    runs-on: ubuntu-latest # Используем чистую ОС Linux в облаке
+    runs-on: ubuntu-latest
     steps:
       - name: Скачивание исходного кода
         uses: actions/checkout@v4
@@ -12,10 +12,10 @@ jobs:
       - name: Установка компилятора и утилит (.NET SDK)
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x' # Указываем актуальную версию платформы .NET
+          dotnet-version: '8.0.x'
 
       - name: Восстановление зависимостей (утилит)
-        run: dotnet restore
+        run: dotnet restore MainApp/MainApp.csproj || dotnet restore StatsApp/StatsApp.csproj || dotnet restore
 
       - name: Компиляция программного средства
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build --configuration Release
