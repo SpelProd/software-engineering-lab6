@@ -4,14 +4,13 @@ using StatsLib;
 
 namespace StatsApp
 {
-    намеренная_ошибка_компиляции
     /**
      * @brief Класс Program - Главный класс приложения StatsApp.
      * 
      * Обеспечивает парсинг аргументов командной строки, чтение данных из файлов,
      * валидацию ограничений и вывод результатов вычислений.
      */
-    class Program;{
+    class Program;
     {
         /**
          * @brief Main - Точка входа в программу.
@@ -42,6 +41,7 @@ namespace StatsApp
 
             try
             {
+                намеренная_ошибка_компиляции
                 if (string.IsNullOrEmpty(options.InputFile))
                 {
                     Console.WriteLine("Ошибка: Не указан входной файл (-i).");

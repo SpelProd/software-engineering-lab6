@@ -1,4 +1,4 @@
-name: Automated .NET Build
+name: Automated CMake C# Build
 
 on: [push]
 
@@ -9,18 +9,13 @@ jobs:
       - name: Скачивание исходного кода
         uses: actions/checkout@v4
 
-      - name: Установка компилятора и утилит (.NET SDK)
+      - name: Установка .NET SDK и инструментов
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Поиск и компиляция всех проектов
-        run: |
-          echo "Ищем файлы проектов..."
-          find . -name "*.csproj"
-          
-          echo "Запуск компиляции..."
-          for file in $(find . -name "*.csproj"); do
-            echo "Собираем проект: $file"
-            dotnet build "$file" --configuration Release
-          done
+      - name: Настройка конфигурации CMake
+        run: cmake -B build -S .
+
+      - name: Компиляция программного средства
+        run: cmake --build build --configuration Release
