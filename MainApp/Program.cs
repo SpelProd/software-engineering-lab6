@@ -41,7 +41,6 @@ namespace StatsApp
 
             try
             {
-                намеренная_ошибка_компиляции
                 if (string.IsNullOrEmpty(options.InputFile))
                 {
                     Console.WriteLine("Ошибка: Не указан входной файл (-i).");
