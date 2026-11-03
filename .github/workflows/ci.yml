@@ -14,8 +14,13 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Восстановление зависимостей (утилит)
-        run: dotnet restore MainApp/MainApp.csproj || dotnet restore StatsApp/StatsApp.csproj || dotnet restore
-
-      - name: Компиляция программного средства
-        run: dotnet build --configuration Release
+      - name: Поиск и компиляция всех проектов
+        run: |
+          echo "Ищем файлы проектов..."
+          find . -name "*.csproj"
+          
+          echo "Запуск компиляции..."
+          for file in $(find . -name "*.csproj"); do
+            echo "Собираем проект: $file"
+            dotnet build "$file" --configuration Release
+          done
