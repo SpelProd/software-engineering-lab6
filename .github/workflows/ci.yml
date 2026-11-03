@@ -1,29 +1,21 @@
-name: Auto Doxygen Deploy
+name: Automated .NET Build
 
-on:
-  push:
-    branches: [ main, master ] # срабатывать при пуше в основные ветки
+on: [push] # Пайплайн срабатывает при каждом git push
 
 jobs:
-  generate-and-deploy-docs:
-    runs-on: ubuntu-latest
+  build-project:
+    runs-on: ubuntu-latest # Используем чистую ОС Linux в облаке
     steps:
-      - name: Checkout main repository code
+      - name: Скачивание исходного кода
         uses: actions/checkout@v4
 
-      - name: Install Doxygen
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y doxygen
-
-      - name: Run Doxygen Generator
-        run: doxygen Doxyfile # генерирует папку docs/html
-
-      - name: Deploy Documentation to .io Repository
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Установка компилятора и утилит (.NET SDK)
+        uses: actions/setup-dotnet@v4
         with:
-          token: ${{ secrets.DOCUMENTATION_TOKEN }} # используем наш секретный токен
-          repository-name: ${{ github.repository_owner }}/software-engineering-lab6.io # УКАЖИТЕ ИМЯ ВАШЕГО .IO РЕПОЗИТОРИЯ
-          branch: main # ветка в целевом репозитории
-          folder: docs/html # какую папку загружаем на сайт
-          target-folder: . # загружаем прямо в корень
+          dotnet-version: '8.0.x' # Указываем актуальную версию платформы .NET
+
+      - name: Восстановление зависимостей (утилит)
+        run: dotnet restore
+
+      - name: Компиляция программного средства
+        run: dotnet build --no-restore --configuration Release
