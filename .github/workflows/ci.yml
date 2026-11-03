@@ -1,15 +1,29 @@
-name: CI Lab Automation
+name: Auto Doxygen Deploy
 
-on: [push] # Запуск при каждом git push
+on:
+  push:
+    branches: [ main, master ] # срабатывать при пуше в основные ветки
 
 jobs:
-  build-and-test:
+  generate-and-deploy-docs:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout main repository code
         uses: actions/checkout@v4
 
-      - name: Verify Travis Test File
+      - name: Install Doxygen
         run: |
-          echo "Проверка наличия файла test_travis.txt..."
-          wc -l test_travis.txt
+          sudo apt-get update
+          sudo apt-get install -y doxygen
+
+      - name: Run Doxygen Generator
+        run: doxygen Doxyfile # генерирует папку docs/html
+
+      - name: Deploy Documentation to .io Repository
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.DOCUMENTATION_TOKEN }} # используем наш секретный токен
+          repository-name: ${{ github.repository_owner }}/software-engineering-lab6.io # УКАЖИТЕ ИМЯ ВАШЕГО .IO РЕПОЗИТОРИЯ
+          branch: main # ветка в целевом репозитории
+          folder: docs/html # какую папку загружаем на сайт
+          target-folder: . # загружаем прямо в корень
