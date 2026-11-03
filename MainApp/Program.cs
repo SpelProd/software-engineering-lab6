@@ -4,6 +4,7 @@ using StatsLib;
 
 namespace StatsApp
 {
+    намеренная_ошибка_компиляции
     /**
      * @brief Класс Program - Главный класс приложения StatsApp.
      * 
